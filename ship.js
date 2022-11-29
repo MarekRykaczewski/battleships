@@ -6,7 +6,10 @@ class Ship {
     }
 
     hit(coordinate) {
-        this.hits.push(coordinate)
+        if (coordinate in this.coordinates) {
+            this.hits.push(coordinate)
+        }
+        
     }
 
     isSunk() {

@@ -39,6 +39,9 @@ class Gameboard {
             }
         } else if (axis === 'y') {
             for (let i = 0; i < ship.coordinates.length; i++) {
+                if (coordinate + (i * 10) > 99) {
+                    return false
+                }
                 locationArray.push(coordinate + (i * 10))
             }
         }

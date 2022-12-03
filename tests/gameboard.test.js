@@ -18,12 +18,6 @@ test("Places ship on grid Y variant", () => {
     let gameboard = new Gameboard()
     expect(gameboard.placeShip(ship, 3, "y")).toStrictEqual([3,13,23])
 })
-test("placeShip adds ship to gameBoard ships", () => {
-    let ship = new Ship([0,1,2])
-    let gameboard = new Gameboard()
-    gameboard.placeShip(ship, 19, "y")
-    expect(gameboard.ships.length).toBe(1)
-})
 test("Find row", () => {
     let gameboard = new Gameboard()
     expect(gameboard.findRow(20)).toStrictEqual([20, 21, 22, 23, 24, 25, 26, 27, 28, 29])

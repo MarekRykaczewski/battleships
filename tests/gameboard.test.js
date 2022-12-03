@@ -37,3 +37,13 @@ test("Do not allow placements that put ship out of bounds (Y axis)", () => {
     let gameboard = new Gameboard()
     expect(gameboard.placeShip(ship, 89, "y")).toBe(false)
 })
+test("receiveHit registers hit", () => {
+    let gameboard = new Gameboard()
+    gameboard.receiveAttack(25)
+    expect(gameboard.grid[25].isShot).toBe(true)
+})
+test("receiveHit registers hit (2)", () => {
+    let gameboard = new Gameboard()
+    gameboard.receiveAttack(25)
+    expect(gameboard.grid[50].isShot).toBe(false)
+})

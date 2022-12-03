@@ -2,8 +2,8 @@ const ship = require("./ship")
 
 class Gameboard {
     constructor() {
-        this.grid = Array(100).fill({ hasShip: false, isShot: false })
-
+        this.grid = []
+        this.init()
         this.rows = 
     [
         [0,1,2,3,4,5,6,7,8,9],
@@ -17,6 +17,12 @@ class Gameboard {
         [80,81,82,83,84,85,86,87,88,89],
         [90,91,92,93,94,95,96,97,98,99]
                                         ]
+    }
+
+    init() {
+        for (let i = 0; i < 100; i++) {
+            this.grid.push({hasShip: false, isShot: false})
+        }
     }
 
     findRow(coordinate) {
@@ -51,6 +57,10 @@ class Gameboard {
             this.grid[locationArray[i]].hasShip = true
         }
         return locationArray
+    }
+
+    receiveAttack(coordinate) {
+        this.grid[coordinate].isShot = true
     }
 }
 

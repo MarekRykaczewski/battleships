@@ -1,6 +1,7 @@
 class Gameboard {
     constructor() {
         this.grid = Array(100).fill({ hasShip: false, isShot: false })
+        this.ships = []
 
         this.rows = 
     [
@@ -48,6 +49,7 @@ class Gameboard {
         for (let i = 0; i < locationArray.length; i++) {
             this.grid[i].hasShip = true
         }
+        this.ships.push(ship)
         return locationArray
     }
 }

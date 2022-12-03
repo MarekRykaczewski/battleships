@@ -45,7 +45,9 @@ class Gameboard {
                 locationArray.push(coordinate + (i * 10))
             }
         }
-        this.grid[coordinate].hasShip = true
+        for (let i = 0; i < locationArray.length; i++) {
+            this.grid[i].hasShip = true
+        }
         return locationArray
     }
 }

@@ -69,6 +69,21 @@ class Gameboard {
             }
         }
     }
+
+    checkSunk() {
+        let shipsSunk = 0
+        for (let i = 0; i < this.ships.length; i++) {
+            if (this.ships[i].sunk) {
+                shipsSunk = shipsSunk + 1
+            }
+        }
+        if (shipsSunk == this.ships.length) {
+            return true
+        } else {
+            return false
+        }
+        
+    }
 }
 
 module.exports = {Gameboard: Gameboard} 

@@ -4,6 +4,7 @@ class Gameboard {
     constructor() {
         this.grid = []
         this.init()
+        this.ships = []
         this.rows = 
     [
         [0,1,2,3,4,5,6,7,8,9],
@@ -56,11 +57,17 @@ class Gameboard {
         for (let i = 0; i < locationArray.length; i++) {
             this.grid[locationArray[i]].hasShip = true
         }
+        this.ships.push(ship)
         return locationArray
     }
 
     receiveAttack(coordinate) {
         this.grid[coordinate].isShot = true
+        for (let i = 0; i < this.ships.length; i++) {
+            if (this.ships[i].coordinates.includes(coordinate)) {
+                this.ships[i].hit(coordinate)
+            }
+        }
     }
 }
 

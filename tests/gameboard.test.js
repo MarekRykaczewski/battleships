@@ -47,3 +47,17 @@ test("receiveHit registers hit (2)", () => {
     gameboard.receiveAttack(25)
     expect(gameboard.grid[50].isShot).toBe(false)
 })
+test("receiveHit hits correct ship", () => {
+    let gameboard = new Gameboard()
+    let ship = new Ship([0,1,2])
+    gameboard.placeShip(ship, 3, "x")
+    gameboard.receiveAttack(0)
+    expect(gameboard.ships[0].hits).toStrictEqual([0])
+})
+test("receiveHit does not call hit on a miss", () => {
+    let gameboard = new Gameboard()
+    let ship = new Ship([0,1,2])
+    gameboard.placeShip(ship, 3, "x")
+    gameboard.receiveAttack(5)
+    expect(gameboard.ships[0].hits).toStrictEqual([])
+})

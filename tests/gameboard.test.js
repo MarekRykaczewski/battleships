@@ -77,3 +77,12 @@ test("checkSunk returns false when a ship has not sunk", () => {
     gameboard.receiveAttack(0)
     expect(gameboard.checkSunk()).toBe(false)
 })
+test("opponentBoard returns what opponent can see", () => {
+    let gameboard = new Gameboard()
+    gameboard.grid = [{hasShip: false, isShot: false}, {hasShip: false, isShot: false}, {hasShip: false, isShot: false}]
+    let ship = new Ship([0,1])
+    gameboard.placeShip(ship, 0, "x")
+    gameboard.receiveAttack(0)
+    gameboard.receiveAttack(2)
+    expect(gameboard.opponentBoard()).toStrictEqual(["hit", "empty", "miss"])
+})

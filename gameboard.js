@@ -84,6 +84,16 @@ class Gameboard {
         }
         
     }
+
+    opponentBoard() {
+        return this.grid.map((cell) => {
+            return cell.isShot && cell.hasShip
+                ? 'hit'
+                : cell.isShot
+                ? 'miss'
+                : 'empty'
+        })
+    }
 }
 
 module.exports = {Gameboard: Gameboard} 

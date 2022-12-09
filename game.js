@@ -29,6 +29,19 @@ class Game {
             boardContainer.appendChild(temp);
         }
     }
+
+    renderShips(player) {
+        let cells = document.getElementsByClassName('cell')
+        for (let i = 0; i < 100; i++) {
+            for (let j = 0; j < player.gameboard.ships.length; j++) {
+                let searchArray = player.gameboard.ships[j].coordinates
+                let searchCell = parseInt(cells.item(i).dataset.coordinate)
+                if (searchArray.includes(searchCell)) {
+                    cells.item(i).classList.add("occupied")
+                }
+            }
+        }
+    }
 }
 
 module.exports = {Game: Game} 

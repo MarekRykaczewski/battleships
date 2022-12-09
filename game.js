@@ -14,6 +14,7 @@ class Game {
         for (let i = 0; i < 100; i++) {
             let temp = document.createElement('div');
             temp.className = "cell"
+            temp.dataset.coordinate = i
             let boardContainer = document.getElementById('board-container')
             boardContainer.appendChild(temp);
         }
@@ -23,6 +24,7 @@ class Game {
         for (let i = 0; i < 100; i++) {
             let temp = document.createElement('div');
             temp.className = "cell"
+            temp.dataset.coordinate = i
             let boardContainer = document.getElementById('opponent-board-container')
             boardContainer.appendChild(temp);
         }

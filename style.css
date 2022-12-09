@@ -1,0 +1,36 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#board-container, #opponent-board-container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    width: 500px;
+    height: 500px;
+    border: 1px solid black
+}
+
+.cell {
+    transition: 0.3s;
+    width: 48px;
+    height: 48px;
+    border: 1px solid black;
+}
+
+#board-container .cell:hover {
+    transition: 0.3s;
+    background-color: rgba(30, 255, 0, 0.5);
+}
+
+#opponent-board-container .cell:hover {
+    transition: 0.3s;
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+.occupied {
+    background-color: blue;
+}

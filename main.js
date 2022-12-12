@@ -30,9 +30,5 @@ let p2Carrier = new Ship([0,1,2,3,4])
 
 p2.gameboard.ships.push(p2Patrol)
 
-console.log(p1.gameboard.ships[0].coordinates)
-
 main.renderShips(p1, "board-container")
 main.renderShips(p2, "opponent-board-container")
-
-console.log(p1.gameboard.ships)

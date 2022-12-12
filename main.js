@@ -13,7 +13,6 @@ let p2 = new Player("computer")
 
 main.renderBoard("board-container")
 main.renderBoard("opponent-board-container")
-// main.renderOpponentBoard()
 
 let p1Patrol = new Ship([0,1])
 let p1Submarine = new Ship([0,1,2])

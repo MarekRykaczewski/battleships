@@ -28,7 +28,7 @@ let p2Destroyer = new Ship([33,43,53])
 let p2Battleship = new Ship([13,14,15,16])
 let p2Carrier = new Ship([75,76,77,78,79])
 
-p2.gameboard.ships.push(p2Patrol, p2Submarine, p1Destroyer, p2Battleship, p2Carrier )
+p2.gameboard.ships.push(p2Patrol, p2Submarine, p2Destroyer, p2Battleship, p2Carrier )
 
 main.renderShips(p1, "board-container")
 main.renderShips(p2, "opponent-board-container")

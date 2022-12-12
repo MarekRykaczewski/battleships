@@ -32,6 +32,16 @@ class Game {
             }
         }
     }
+
+    addCellEventListeners(playerOne, PlayerTwo, boardId) {
+        let cells = document.getElementById(boardId).getElementsByClassName('cell')
+        for (let i = 0; i < 100; i++) {
+            let coordinate = cells.item(i).dataset.coordinate
+            cells.item(i).addEventListener("click", function() {
+                playerOne.shoot(coordinate, PlayerTwo.gameboard)
+            })
+        }
+    }
 }
 
 module.exports = {Game: Game} 

@@ -32,3 +32,6 @@ p2.gameboard.ships.push(p2Patrol, p2Submarine, p2Destroyer, p2Battleship, p2Carr
 
 main.renderShips(p1, "board-container")
 main.renderShips(p2, "opponent-board-container")
+
+main.addCellEventListeners(p1, p2, "opponent-board-container")
+main.addHitEventListners(p2, "opponent-board-container")

@@ -42,6 +42,19 @@ class Game {
             })
         }
     }
+
+    addHitEventListners(player, boardId) {
+        let cells = document.getElementById(boardId).getElementsByClassName('cell')
+        for (let i = 0; i < 100; i++) {
+            cells.item(i).addEventListener("click", function() {
+                if (player.gameboard.grid[i].hasShip) {
+                    let temp = document.createElement('div');
+                    temp.className = "hit"
+                    cells.item(i).append(temp)
+                }
+            })
+        }
+    }
 }
 
 module.exports = {Game: Game} 

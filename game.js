@@ -33,12 +33,12 @@ class Game {
         }
     }
 
-    addCellEventListeners(playerOne, PlayerTwo, boardId) {
+    addCellEventListeners(playerOne, playerTwo, boardId) {
         let cells = document.getElementById(boardId).getElementsByClassName('cell')
         for (let i = 0; i < 100; i++) {
             let coordinate = cells.item(i).dataset.coordinate
             cells.item(i).addEventListener("click", function() {
-                playerOne.shoot(coordinate, PlayerTwo.gameboard)
+                playerOne.shoot(coordinate, playerTwo.gameboard)
             })
         }
     }

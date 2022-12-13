@@ -34,25 +34,23 @@ class Game {
     }
 
     addCellEventListeners(playerOne, playerTwo, boardId) {
+        let self = this
         let cells = document.getElementById(boardId).getElementsByClassName('cell')
         for (let i = 0; i < 100; i++) {
             let coordinate = cells.item(i).dataset.coordinate
             cells.item(i).addEventListener("click", function() {
                 playerOne.shoot(coordinate, playerTwo.gameboard)
+                self.updateCell(playerTwo, coordinate, boardId)
             })
         }
     }
 
-    addHitEventListners(player, boardId) {
+    updateCell(player, coordinate, boardId) {
         let cells = document.getElementById(boardId).getElementsByClassName('cell')
-        for (let i = 0; i < 100; i++) {
-            cells.item(i).addEventListener("click", function() {
-                if (player.gameboard.grid[i].hasShip) {
-                    let temp = document.createElement('div');
-                    temp.className = "hit"
-                    cells.item(i).append(temp)
-                }
-            })
+        if (player.gameboard.grid[coordinate].hasShip) {
+            let temp = document.createElement('div');
+            temp.className = "hit"
+            cells.item(coordinate).append(temp)
         }
     }
 }

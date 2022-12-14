@@ -41,6 +41,9 @@ class Game {
             cells.item(i).addEventListener("click", function() {
                 playerOne.shoot(coordinate, playerTwo.gameboard)
                 self.updateCell(playerTwo, coordinate, boardId)
+                let computerShot = playerTwo.getRandomShot()
+                playerTwo.shoot(computerShot, playerOne.gameboard)
+                self.updateCell(playerOne, computerShot, "board-container")
             })
         }
     }

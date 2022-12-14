@@ -34,3 +34,18 @@ body {
 .occupied {
     background-color: blue;
 }
+
+.hit {
+    background-image: url(./imgs/crosshair.png);
+    background-size: contain;
+    height: 50px;
+    width: 50px;
+}
+
+.miss {
+    height: 48px;
+    width: 48px;
+    background-color: black;
+    border-radius: 50%;
+    display: inline-block;
+}

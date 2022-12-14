@@ -5,7 +5,6 @@ class Player {
     constructor (name) {
         this.name = name
         this.gameboard = new Gameboard()
-        this.ships = []
     }
 
     shoot(coordinate, gameboard) {
@@ -16,6 +15,9 @@ class Player {
         }
     }
 
+    getRandomShot() {
+        return Math.floor(Math.random() * 100)
+    }
 
 }
 

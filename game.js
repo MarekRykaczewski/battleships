@@ -39,11 +39,19 @@ class Game {
         for (let i = 0; i < 100; i++) {
             let coordinate = cells.item(i).dataset.coordinate
             cells.item(i).addEventListener("click", function() {
-                playerOne.shoot(coordinate, playerTwo.gameboard)
-                self.updateCell(playerTwo, coordinate, boardId)
-                let computerShot = playerTwo.getRandomShot()
-                playerTwo.shoot(computerShot, playerOne.gameboard)
-                self.updateCell(playerOne, computerShot, "board-container")
+                if (playerTwo.gameboard.opponentBoard()[coordinate] == "empty") {
+                    playerOne.shoot(coordinate, playerTwo.gameboard)
+                    self.updateCell(playerTwo, coordinate, boardId)
+                } else {
+                    return false
+                }
+                if (playerOne.gameboard.opponentBoard()[coordinate] == "empty") {
+                    let computerShot = playerTwo.getRandomShot()
+                    playerTwo.shoot(computerShot, playerOne.gameboard)
+                    self.updateCell(playerOne, computerShot, "board-container")
+                } else {
+                    return false
+                }
             })
         }
     }

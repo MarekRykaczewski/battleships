@@ -6,9 +6,9 @@ class Ship {
     }
 
     hit(coordinate) {
-        if (coordinate in this.coordinates) {
+        // if (coordinate in this.coordinates) {
             this.hits.push(coordinate)
-        }
+        // }
         if (this.isSunk()) {
             this.sunk = true
         }

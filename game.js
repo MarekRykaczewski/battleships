@@ -54,6 +54,10 @@ class Game {
             let temp = document.createElement('div');
             temp.className = "hit"
             cells.item(coordinate).append(temp)
+        } else {
+            let temp = document.createElement('div')
+            temp.className = "miss"
+            cells.item(coordinate).append(temp)
         }
     }
 }

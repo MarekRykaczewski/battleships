@@ -34,6 +34,13 @@ class Game {
     }
 
     addCellEventListeners(playerOne, playerTwo, boardId) {
+        // console.log(playerTwo.gameboard)
+        console.log(playerTwo.gameboard.ships[0])
+        // playerTwo.gameboard.ships[0].hit(5)
+        playerTwo.gameboard.receiveAttack(5)
+        // console.log([5,15].includes(5))
+        console.log(playerTwo.gameboard.ships)
+        // console.log(playerTwo.gameboard.checkSunk())
         let self = this
         let cells = document.getElementById(boardId).getElementsByClassName('cell')
         for (let i = 0; i < 100; i++) {

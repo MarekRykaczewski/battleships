@@ -38,6 +38,9 @@ class Game {
         let cells = document.getElementById(boardId).getElementsByClassName('cell')
         for (let i = 0; i < 100; i++) {
             cells.item(i).addEventListener("click", function() {
+                if (ships.length === 0) {
+                    return false
+                }
                 let coordinate = parseInt(cells.item(i).dataset.coordinate)
                 ships[0].coordinates = player.gameboard.placeShip(ships[0], coordinate, "x")
                 ships.shift()

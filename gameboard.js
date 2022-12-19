@@ -62,10 +62,11 @@ class Gameboard {
     }
 
     receiveAttack(coordinate) {
-        this.grid[coordinate].isShot = true
+        let corInt = parseInt(coordinate) 
+        this.grid[corInt].isShot = true
         for (let i = 0; i < this.ships.length; i++) {
-            if (this.ships[i].coordinates.includes(coordinate)) {
-                this.ships[i].hit(coordinate)
+            if (this.ships[i].coordinates.includes(corInt)) {
+                this.ships[i].hit(corInt)
             }
         }
     }

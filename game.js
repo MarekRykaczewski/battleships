@@ -39,6 +39,7 @@ class Game {
         for (let i = 0; i < 100; i++) {
             cells.item(i).addEventListener("click", function() {
                 if (ships.length === 0) {
+                    alert("You have placed all your ships!")
                     return false
                 }
                 let coordinate = parseInt(cells.item(i).dataset.coordinate)

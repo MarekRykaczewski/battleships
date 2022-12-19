@@ -33,6 +33,20 @@ class Game {
         }
     }
 
+    addPlacementEventListeners(player, boardId, ships) {
+        let self = this
+        let cells = document.getElementById(boardId).getElementsByClassName('cell')
+        for (let i = 0; i < 100; i++) {
+            cells.item(i).addEventListener("click", function() {
+                let coordinate = parseInt(cells.item(i).dataset.coordinate)
+                ships[0].coordinates = player.gameboard.placeShip(ships[0], coordinate, "x")
+                ships.shift()
+                console.log(player.gameboard)
+                self.renderShips(player, boardId)
+            })
+        }
+    }
+
     addEnemyCellEventListeners(playerOne, playerTwo, boardId) {
         let self = this
         let cells = document.getElementById(boardId).getElementsByClassName('cell')

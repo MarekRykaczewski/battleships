@@ -33,6 +33,11 @@ class Game {
         }
     }
 
+    getDirection() {
+        let btn = document.getElementById("dir-btn")
+        return btn.innerHTML
+    }
+
     addPlacementEventListeners(player, boardId, ships) {
         let self = this
         let cells = document.getElementById(boardId).getElementsByClassName('cell')
@@ -43,7 +48,7 @@ class Game {
                     return false
                 }
                 let coordinate = parseInt(cells.item(i).dataset.coordinate)
-                ships[0].coordinates = player.gameboard.placeShip(ships[0], coordinate, "x")
+                ships[0].coordinates = player.gameboard.placeShip(ships[0], coordinate, self.getDirection())
                 ships.shift()
                 self.renderShips(player, boardId)
             })

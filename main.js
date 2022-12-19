@@ -11,6 +11,21 @@ const main = new Game()
 let p1 = new Player("human")
 let p2 = new Player("computer")
 
+let btn = document.getElementById("dir-btn")
+
+function toggleDirectionBtn() {
+    if (btn.innerHTML === "x") {
+        btn.innerHTML = "y"
+    } else {
+        btn.innerHTML = "x"
+    }
+}
+
+btn.onclick = function() {
+    toggleDirectionBtn()
+}
+
+
 let p1Ships = []
 let p1Patrol = new Ship([0,1])
 let p1Submarine = new Ship([0,1,2])

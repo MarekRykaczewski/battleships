@@ -33,14 +33,7 @@ class Game {
         }
     }
 
-    addCellEventListeners(playerOne, playerTwo, boardId) {
-        // console.log(playerTwo.gameboard)
-        console.log(playerTwo.gameboard.ships[0])
-        // playerTwo.gameboard.ships[0].hit(5)
-        playerTwo.gameboard.receiveAttack(5)
-        // console.log([5,15].includes(5))
-        console.log(playerTwo.gameboard.ships)
-        // console.log(playerTwo.gameboard.checkSunk())
+    addCellEventListeners(playerOne, playerTwo, boardId, game) {
         let self = this
         let cells = document.getElementById(boardId).getElementsByClassName('cell')
         for (let i = 0; i < 100; i++) {
@@ -49,6 +42,10 @@ class Game {
                 if (playerTwo.gameboard.opponentBoard()[coordinate] == "empty") {
                     playerOne.shoot(coordinate, playerTwo.gameboard)
                     self.updateCell(playerTwo, coordinate, boardId)
+                    if (playerTwo.gameboard.checkSunk()) {
+                        alert("Player 1 has won!")
+                        window.location.reload()
+                    }
                 } else {
                     return false
                 }
@@ -56,6 +53,10 @@ class Game {
                     let computerShot = playerTwo.getRandomShot()
                     playerTwo.shoot(computerShot, playerOne.gameboard)
                     self.updateCell(playerOne, computerShot, "board-container")
+                    if (playerOne.gameboard.checkSunk()) {
+                        alert("Player 2 has won!")
+                        window.location.reload()
+                    }
                 } else {
                     return false
                 }

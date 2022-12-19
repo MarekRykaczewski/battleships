@@ -33,7 +33,7 @@ class Game {
         }
     }
 
-    addCellEventListeners(playerOne, playerTwo, boardId, game) {
+    addEnemyCellEventListeners(playerOne, playerTwo, boardId) {
         let self = this
         let cells = document.getElementById(boardId).getElementsByClassName('cell')
         for (let i = 0; i < 100; i++) {

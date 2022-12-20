@@ -34,14 +34,50 @@ class Game {
         }
     }
 
-    addCellEventListeners(playerOne, playerTwo, boardId) {
-        // console.log(playerTwo.gameboard)
-        console.log(playerTwo.gameboard.ships[0])
-        // playerTwo.gameboard.ships[0].hit(5)
-        playerTwo.gameboard.receiveAttack(5)
-        // console.log([5,15].includes(5))
-        console.log(playerTwo.gameboard.ships)
-        // console.log(playerTwo.gameboard.checkSunk())
+    getDirection() {
+        let btn = document.getElementById("dir-btn")
+        return btn.innerHTML
+    }
+
+    addDirectionBtn() {
+        let playerInterface = document.getElementById("player-interface")
+
+        let btn = document.createElement("button")
+        btn.id = "dir-btn"
+        btn.innerHTML = "x"
+        playerInterface.append(btn)
+        
+        function toggleDirectionBtn() {
+            if (btn.innerHTML === "x") {
+                btn.innerHTML = "y"
+            } else {
+                btn.innerHTML = "x"
+            }
+        }
+        
+        btn.onclick = function() {
+            toggleDirectionBtn()
+        }        
+    }
+
+    addPlacementEventListeners(player, boardId, ships) {
+        let self = this
+        let cells = document.getElementById(boardId).getElementsByClassName('cell')
+        for (let i = 0; i < 100; i++) {
+            cells.item(i).addEventListener("click", function() {
+                if (ships.length === 0) {
+                    alert("You have placed all your ships!")
+                    return false
+                }
+                let coordinate = parseInt(cells.item(i).dataset.coordinate)
+                ships[0].coordinates = player.gameboard.placeShip(ships[0], coordinate, self.getDirection())
+                ships.shift()
+                self.renderShips(player, boardId)
+            })
+        }
+    }
+
+    addEnemyCellEventListeners(playerOne, playerTwo, boardId) {
         let self = this
         let cells = document.getElementById(boardId).getElementsByClassName('cell')
         for (let i = 0; i < 100; i++) {
@@ -50,6 +86,10 @@ class Game {
                 if (playerTwo.gameboard.opponentBoard()[coordinate] == "empty") {
                     playerOne.shoot(coordinate, playerTwo.gameboard)
                     self.updateCell(playerTwo, coordinate, boardId)
+                    if (playerTwo.gameboard.checkSunk()) {
+                        alert("Player 1 has won!")
+                        window.location.reload()
+                    }
                 } else {
                     return false
                 }
@@ -57,6 +97,10 @@ class Game {
                     let computerShot = playerTwo.getRandomShot()
                     playerTwo.shoot(computerShot, playerOne.gameboard)
                     self.updateCell(playerOne, computerShot, "board-container")
+                    if (playerOne.gameboard.checkSunk()) {
+                        alert("Player 2 has won!")
+                        window.location.reload()
+                    }
                 } else {
                     return false
                 }
@@ -144,10 +188,11 @@ class Gameboard {
     }
 
     receiveAttack(coordinate) {
-        this.grid[coordinate].isShot = true
+        let corInt = parseInt(coordinate) 
+        this.grid[corInt].isShot = true
         for (let i = 0; i < this.ships.length; i++) {
-            if (this.ships[i].coordinates.includes(coordinate)) {
-                this.ships[i].hit(coordinate)
+            if (this.ships[i].coordinates.includes(corInt)) {
+                this.ships[i].hit(corInt)
             }
         }
     }
@@ -193,23 +238,48 @@ const main = new Game()
 let p1 = new Player("human")
 let p2 = new Player("computer")
 
-main.renderBoard("board-container")
-main.renderBoard("opponent-board-container")
+// let btn = document.getElementById("dir-btn")
 
+// function toggleDirectionBtn() {
+//     if (btn.innerHTML === "x") {
+//         btn.innerHTML = "y"
+//     } else {
+//         btn.innerHTML = "x"
+//     }
+// }
+
+// btn.onclick = function() {
+//     toggleDirectionBtn()
+// }
+
+main.addDirectionBtn()
+
+let rdyBtn = document.getElementById("rdy-btn")
+
+function ready() {
+    main.renderBoard("opponent-board-container")
+    main.renderShips(p2, "opponent-board-container")
+    main.addEnemyCellEventListeners(p1, p2, "opponent-board-container")
+}
+
+rdyBtn.onclick = function() {
+    if (p1Ships.length === 0) {
+        ready()
+    } else {
+        alert("Place all your ships first!")
+    }
+}
+
+
+let p1Ships = []
 let p1Patrol = new Ship([0,1])
-p1Patrol.coordinates = p1.gameboard.placeShip(p1Patrol, 2 , "x")
-
 let p1Submarine = new Ship([0,1,2])
-p1Submarine.coordinates = p1.gameboard.placeShip(p1Submarine, 10 , "y")
+p1Ships.push(p1Patrol, p1Submarine)
 
-// let p1Destroyer = new Ship([0,1,2])
-// p1Patrol.coordinates = p1.gameboard.placeShip(p1Patrol, 2 , "x")
+main.renderBoard("board-container")
+// main.renderBoard("opponent-board-container")
 
-// let p1Battleship = new Ship([0,1,2,3])
-// p1Patrol.coordinates = p1.gameboard.placeShip(p1Patrol, 2 , "x")
-
-// let p1Carrier = new Ship([0,1,2,3,4])
-// p1Patrol.coordinates = p1.gameboard.placeShip(p1Patrol, 2 , "x")
+main.addPlacementEventListeners(p1, "board-container", p1Ships)
 
 let p2Patrol = new Ship([0,1])
 p2Patrol.coordinates = p2.gameboard.placeShip(p2Patrol, 5 , "y")
@@ -217,15 +287,9 @@ p2Patrol.coordinates = p2.gameboard.placeShip(p2Patrol, 5 , "y")
 let p2Submarine = new Ship([0,1,2])
 p2Submarine.coordinates = p2.gameboard.placeShip(p2Submarine, 50 , "x")
 
-// let p2Destroyer = new Ship([0,1,2])
-// let p2Battleship = new Ship([0,1,2,3])
-// let p2Carrier = new Ship([,1,2,3,4])
+// main.renderShips(p2, "opponent-board-container")
 
-main.renderShips(p1, "board-container")
-main.renderShips(p2, "opponent-board-container")
-
-main.addCellEventListeners(p1, p2, "opponent-board-container")
-// main.addHitEventListners(p2, "opponent-board-container")
+// main.addEnemyCellEventListeners(p1, p2, "opponent-board-container")
 },{"./game":1,"./gameboard":2,"./player":4,"./ship":5}],4:[function(require,module,exports){
 const gameboard = require("./gameboard")
 let Gameboard = gameboard.Gameboard

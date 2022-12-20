@@ -38,6 +38,27 @@ class Game {
         return btn.innerHTML
     }
 
+    addDirectionBtn() {
+        let playerInterface = document.getElementById("player-interface")
+
+        let btn = document.createElement("button")
+        btn.id = "dir-btn"
+        btn.innerHTML = "x"
+        playerInterface.append(btn)
+        
+        function toggleDirectionBtn() {
+            if (btn.innerHTML === "x") {
+                btn.innerHTML = "y"
+            } else {
+                btn.innerHTML = "x"
+            }
+        }
+        
+        btn.onclick = function() {
+            toggleDirectionBtn()
+        }        
+    }
+
     addPlacementEventListeners(player, boardId, ships) {
         let self = this
         let cells = document.getElementById(boardId).getElementsByClassName('cell')

@@ -25,6 +25,22 @@ btn.onclick = function() {
     toggleDirectionBtn()
 }
 
+let rdyBtn = document.getElementById("rdy-btn")
+
+function ready() {
+    main.renderBoard("opponent-board-container")
+    main.renderShips(p2, "opponent-board-container")
+    main.addEnemyCellEventListeners(p1, p2, "opponent-board-container")
+}
+
+rdyBtn.onclick = function() {
+    if (p1Ships.length === 0) {
+        ready()
+    } else {
+        alert("Place all your ships first!")
+    }
+}
+
 
 let p1Ships = []
 let p1Patrol = new Ship([0,1])
@@ -32,7 +48,7 @@ let p1Submarine = new Ship([0,1,2])
 p1Ships.push(p1Patrol, p1Submarine)
 
 main.renderBoard("board-container")
-main.renderBoard("opponent-board-container")
+// main.renderBoard("opponent-board-container")
 
 main.addPlacementEventListeners(p1, "board-container", p1Ships)
 
@@ -42,6 +58,6 @@ p2Patrol.coordinates = p2.gameboard.placeShip(p2Patrol, 5 , "y")
 let p2Submarine = new Ship([0,1,2])
 p2Submarine.coordinates = p2.gameboard.placeShip(p2Submarine, 50 , "x")
 
-main.renderShips(p2, "opponent-board-container")
+// main.renderShips(p2, "opponent-board-container")
 
-main.addEnemyCellEventListeners(p1, p2, "opponent-board-container")
+// main.addEnemyCellEventListeners(p1, p2, "opponent-board-container")

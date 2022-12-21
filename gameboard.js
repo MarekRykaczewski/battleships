@@ -63,7 +63,6 @@ class Gameboard {
         for (let i = 0; i < locationArray.length; i++) {
             this.grid[locationArray[i]].hasShip = true
         }
-        // ship.coordinates = locationArray
         this.ships.push(ship)
         return locationArray
     }
@@ -92,12 +91,35 @@ class Gameboard {
                 locationArray.push(coordinate + (i * 10))
             }
         }
-        // for (let i = 0; i < locationArray.length; i++) {
-        //     this.grid[locationArray[i]].hasShip = true
-        // }
-        // ship.coordinates = locationArray
-        // this.ships.push(ship)
         return locationArray
+    }
+
+    checkIfLegalComputer(ship, coordinate, axis) {
+        let locationArray = []
+        let row = this.findRow(coordinate)
+        if (axis === 'x') {
+            for (let i = 0; i < ship.coordinates.length; i++) {
+                if (i + coordinate > row[row.length - 1]) {
+                   return false
+                }
+                if (this.grid[i + coordinate].hasShip) {
+                    return false
+                }
+                locationArray.push(coordinate + i)
+            }
+        } else if (axis === 'y') {
+            for (let i = 0; i < ship.coordinates.length; i++) {
+                if (coordinate + (i * 10) > 99) {
+                    return false
+                }
+                if (this.grid[coordinate + (i * 10)].hasShip) {
+                    return false
+                }
+                locationArray.push(coordinate + (i * 10))
+            }
+        }
+        let array = [locationArray, axis]
+        return array
     }
 
     receiveAttack(coordinate) {

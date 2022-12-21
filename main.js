@@ -32,7 +32,10 @@ rdyBtn.onclick = function() {
 let p1Ships = []
 let p1Patrol = new Ship([0,1])
 let p1Submarine = new Ship([0,1,2])
-p1Ships.push(p1Patrol, p1Submarine)
+let p1Destroyer = new Ship([0,1,2])
+let p1Battleship = new Ship ([0,1,2,3])
+let p1Carrier = new Ship ([0,1,2,3,4])
+p1Ships.push(p1Patrol, p1Submarine, p1Destroyer, p1Battleship, p1Carrier)
 
 main.renderBoard("board-container")
 main.addPlacementEventListeners(p1, "board-container", p1Ships)
@@ -50,8 +53,21 @@ function randomDirection() {
     }
 }
 
+let p2Ships = []
 let p2Patrol = new Ship([0,1])
-p2Patrol.coordinates = p2.gameboard.placeShip(p2Patrol, randomCoordinate(), randomDirection())
-
 let p2Submarine = new Ship([0,1,2])
-p2Submarine.coordinates = p2.gameboard.placeShip(p2Submarine, randomCoordinate(), randomDirection())
+let p2Destroyer = new Ship([0,1,2])
+let p2Battleship = new Ship ([0,1,2,3])
+let p2Carrier = new Ship ([0,1,2,3,4])
+p2Ships.push(p2Patrol, p2Submarine, p2Destroyer, p2Battleship, p2Carrier)
+
+for (let i = 0; i < p2Ships.length; i++) {
+    let move
+    while (!(Array.isArray(move))) {
+        move = p2.gameboard.checkIfLegalComputer(p2Ships[i], randomCoordinate(), randomDirection())
+    }
+    console.log(move)
+    if (move != false) {
+        p2Ships[i].coordinates = p2.gameboard.placeShip(p2Ships[i], move[0][0], move[1])
+    }
+}

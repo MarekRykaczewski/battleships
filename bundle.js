@@ -70,9 +70,11 @@ class Game {
                     return false
                 }
                 let coordinate = parseInt(cells.item(i).dataset.coordinate)
-                ships[0].coordinates = player.gameboard.placeShip(ships[0], coordinate, self.getDirection())
-                ships.shift()
-                self.renderShips(player, boardId)
+                if (player.gameboard.checkIfLegal(ships[0], coordinate, self.getDirection())) {
+                    ships[0].coordinates = player.gameboard.placeShip(ships[0], coordinate, self.getDirection())
+                    ships.shift()
+                    self.renderShips(player, boardId) 
+                }
             })
         }
     }
@@ -170,11 +172,17 @@ class Gameboard {
                 if (i + coordinate > row[row.length - 1]) {
                    return false
                 }
+                if (this.grid[i + coordinate].hasShip) {
+                    return false
+                }
                 locationArray.push(coordinate + i)
             }
         } else if (axis === 'y') {
             for (let i = 0; i < ship.coordinates.length; i++) {
                 if (coordinate + (i * 10) > 99) {
+                    return false
+                }
+                if (this.grid[coordinate + (i * 10)].hasShip) {
                     return false
                 }
                 locationArray.push(coordinate + (i * 10))
@@ -185,6 +193,61 @@ class Gameboard {
         }
         this.ships.push(ship)
         return locationArray
+    }
+
+    checkIfLegal(ship, coordinate, axis) {
+        let locationArray = []
+        let row = this.findRow(coordinate)
+        if (axis === 'x') {
+            for (let i = 0; i < ship.coordinates.length; i++) {
+                if (i + coordinate > row[row.length - 1]) {
+                   return false
+                }
+                if (this.grid[i + coordinate].hasShip) {
+                    return false
+                }
+                locationArray.push(coordinate + i)
+            }
+        } else if (axis === 'y') {
+            for (let i = 0; i < ship.coordinates.length; i++) {
+                if (coordinate + (i * 10) > 99) {
+                    return false
+                }
+                if (this.grid[coordinate + (i * 10)].hasShip) {
+                    return false
+                }
+                locationArray.push(coordinate + (i * 10))
+            }
+        }
+        return locationArray
+    }
+
+    checkIfLegalComputer(ship, coordinate, axis) {
+        let locationArray = []
+        let row = this.findRow(coordinate)
+        if (axis === 'x') {
+            for (let i = 0; i < ship.coordinates.length; i++) {
+                if (i + coordinate > row[row.length - 1]) {
+                   return false
+                }
+                if (this.grid[i + coordinate].hasShip) {
+                    return false
+                }
+                locationArray.push(coordinate + i)
+            }
+        } else if (axis === 'y') {
+            for (let i = 0; i < ship.coordinates.length; i++) {
+                if (coordinate + (i * 10) > 99) {
+                    return false
+                }
+                if (this.grid[coordinate + (i * 10)].hasShip) {
+                    return false
+                }
+                locationArray.push(coordinate + (i * 10))
+            }
+        }
+        let array = [locationArray, axis]
+        return array
     }
 
     receiveAttack(coordinate) {
@@ -259,7 +322,10 @@ rdyBtn.onclick = function() {
 let p1Ships = []
 let p1Patrol = new Ship([0,1])
 let p1Submarine = new Ship([0,1,2])
-p1Ships.push(p1Patrol, p1Submarine)
+let p1Destroyer = new Ship([0,1,2])
+let p1Battleship = new Ship ([0,1,2,3])
+let p1Carrier = new Ship ([0,1,2,3,4])
+p1Ships.push(p1Patrol, p1Submarine, p1Destroyer, p1Battleship, p1Carrier)
 
 main.renderBoard("board-container")
 main.addPlacementEventListeners(p1, "board-container", p1Ships)
@@ -277,11 +343,53 @@ function randomDirection() {
     }
 }
 
+let p2Ships = []
 let p2Patrol = new Ship([0,1])
-p2Patrol.coordinates = p2.gameboard.placeShip(p2Patrol, randomCoordinate(), randomDirection())
-
 let p2Submarine = new Ship([0,1,2])
-p2Submarine.coordinates = p2.gameboard.placeShip(p2Submarine, randomCoordinate(), randomDirection())
+let p2Destroyer = new Ship([0,1,2])
+let p2Battleship = new Ship ([0,1,2,3])
+let p2Carrier = new Ship ([0,1,2,3,4])
+p2Ships.push(p2Patrol, p2Submarine, p2Destroyer, p2Battleship, p2Carrier)
+
+// let q = p2Ships
+// for (let i = 0; i < q.length; i++) {
+//     let move
+//     while (!(Array.isArray(move))) {
+//         move = p2.gameboard.checkIfLegalComputer(p2Ships[i], randomCoordinate(), randomDirection())
+//     }
+//     q[0].coordinates = p2.gameboard.placeShip(q[0], move[0], move[1])
+//     q.shift()
+//     if (q === 0) {
+//         return
+//     }
+// }
+
+for (let i = 0; i < p2Ships.length; i++) {
+    console.log(p2Ships[i])
+    let move
+    while (!(Array.isArray(move))) {
+        move = p2.gameboard.checkIfLegalComputer(p2Ships[i], randomCoordinate(), randomDirection())
+    }
+    console.log(move)
+    if (move != false) {
+        p2Ships[i].coordinates = p2.gameboard.placeShip(p2Ships[i], move[0][0], move[1])
+    }
+    console.log(p2.gameboard.ships)
+}
+
+// p2Patrol.coordinates = p2.gameboard.placeShip(p2Patrol, randomCoordinate(), randomDirection())
+
+
+// p2Submarine.coordinates = p2.gameboard.placeShip(p2Submarine, randomCoordinate(), randomDirection())
+
+
+// p2Destroyer.coordinates = p2.gameboard.placeShip(p2Destroyer, randomCoordinate(), randomDirection())
+
+
+// p2Battleship.coordinates = p2.gameboard.placeShip(p2Battleship, randomCoordinate(), randomDirection())
+
+
+// p2Carrier.coordinates = p2.gameboard.placeShip(p2Carrier, randomCoordinate(), randomDirection())
 
 },{"./game":1,"./gameboard":2,"./player":4,"./ship":5}],4:[function(require,module,exports){
 const gameboard = require("./gameboard")

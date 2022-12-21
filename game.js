@@ -69,11 +69,9 @@ class Game {
                     return false
                 }
                 let coordinate = parseInt(cells.item(i).dataset.coordinate)
-                if (player.gameboard.placeShip(ships[0], coordinate, self.getDirection())) {
-                    ships[0].coordinates = player.gameboard.placeShip(ships[0], coordinate, self.getDirection())
-                    ships.shift()
-                    self.renderShips(player, boardId)
-                }
+                ships[0].coordinates = player.gameboard.placeShip(ships[0], coordinate, self.getDirection())
+                ships.shift()
+                self.renderShips(player, boardId)
             })
         }
     }

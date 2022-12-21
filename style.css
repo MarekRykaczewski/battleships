@@ -63,3 +63,9 @@ body {
     height: 30px;
     font-weight: bold;
 }
+
+#boards {
+    display: flex;
+    gap: 50px;
+    padding: 10px;
+}

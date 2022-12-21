@@ -238,20 +238,6 @@ const main = new Game()
 let p1 = new Player("human")
 let p2 = new Player("computer")
 
-// let btn = document.getElementById("dir-btn")
-
-// function toggleDirectionBtn() {
-//     if (btn.innerHTML === "x") {
-//         btn.innerHTML = "y"
-//     } else {
-//         btn.innerHTML = "x"
-//     }
-// }
-
-// btn.onclick = function() {
-//     toggleDirectionBtn()
-// }
-
 main.addDirectionBtn()
 
 let rdyBtn = document.getElementById("rdy-btn")
@@ -270,26 +256,33 @@ rdyBtn.onclick = function() {
     }
 }
 
-
 let p1Ships = []
 let p1Patrol = new Ship([0,1])
 let p1Submarine = new Ship([0,1,2])
 p1Ships.push(p1Patrol, p1Submarine)
 
 main.renderBoard("board-container")
-// main.renderBoard("opponent-board-container")
-
 main.addPlacementEventListeners(p1, "board-container", p1Ships)
 
+function randomCoordinate() {
+    return Math.floor(Math.random() * 100)
+}
+
+function randomDirection() {
+    let dir = Math.floor(Math.random() * 2)
+    if (dir === 1) {
+        return "x"
+    } else {
+        return "y"
+    }
+}
+
 let p2Patrol = new Ship([0,1])
-p2Patrol.coordinates = p2.gameboard.placeShip(p2Patrol, 5 , "y")
+p2Patrol.coordinates = p2.gameboard.placeShip(p2Patrol, randomCoordinate(), randomDirection())
 
 let p2Submarine = new Ship([0,1,2])
-p2Submarine.coordinates = p2.gameboard.placeShip(p2Submarine, 50 , "x")
+p2Submarine.coordinates = p2.gameboard.placeShip(p2Submarine, randomCoordinate(), randomDirection())
 
-// main.renderShips(p2, "opponent-board-container")
-
-// main.addEnemyCellEventListeners(p1, p2, "opponent-board-container")
 },{"./game":1,"./gameboard":2,"./player":4,"./ship":5}],4:[function(require,module,exports){
 const gameboard = require("./gameboard")
 let Gameboard = gameboard.Gameboard

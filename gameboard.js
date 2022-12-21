@@ -44,11 +44,17 @@ class Gameboard {
                 if (i + coordinate > row[row.length - 1]) {
                    return false
                 }
+                if (this.grid[i + coordinate].hasShip) {
+                    return false
+                }
                 locationArray.push(coordinate + i)
             }
         } else if (axis === 'y') {
             for (let i = 0; i < ship.coordinates.length; i++) {
                 if (coordinate + (i * 10) > 99) {
+                    return false
+                }
+                if (this.grid[coordinate + (i * 10)].hasShip) {
                     return false
                 }
                 locationArray.push(coordinate + (i * 10))
